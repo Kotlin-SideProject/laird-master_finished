@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Copyright (c) 2014 Laird Technologies. All Rights Reserved.
+
+The information contained herein is property of Laird Technologies.
+Licensees are granted free, non-transferable use of the information. NO WARRANTY of ANY KIND is provided.
+This heading must NOT be removed from the file.
+-->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/customParentLayout"
+        android:background="#E8E8E8"
+        android:orientation="vertical" >
+
+
+
+            <include
+            android:id="@+id/includeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/item_scan_button" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:layout_width="368dp"
+            android:layout_height="250dp"
+            android:id="@+id/chart1"
+            tools:layour_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="8dp"></com.github.mikephil.charting.charts.LineChart>
+
+
+        <TextView
+            android:id="@+id/labelVspOutTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="#E8E8E8"
+            android:text="@string/console"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <ScrollView
+            android:id="@+id/scrollViewVspOut"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/border" >
+
+            <TextView
+                android:id="@+id/valueVspOutTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textIsSelectable="true"
+                android:textSize="20sp" />
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/containerVspIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/valueVspInputEt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/btnSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:onClick="btnSend"
+                android:text="@string/btn_send"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/containerCounters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+</ScrollView>
