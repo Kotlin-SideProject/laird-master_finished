@@ -11,6 +11,7 @@ package com.lairdtech.lairdtoolkit.serialdevice;
 import android.bluetooth.BluetoothGatt;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +52,8 @@ public class SerialActivity extends BaseActivity implements SerialManagerUiCallb
 	private LineChart mChart;
 	private Thread thread;
 	private boolean plotData = true;
+	String s0 = "";
+	private String TAG = SerialActivity.class.getSimpleName();
 
 //	private EditText imeiInput;
 //	private EditText zipcardInput;
@@ -103,7 +106,7 @@ public class SerialActivity extends BaseActivity implements SerialManagerUiCallb
 
 		YAxis leftAxis = mChart.getAxisLeft();
 		leftAxis.setTextColor(Color.WHITE);
-		leftAxis.setAxisMaximum(500f);
+		leftAxis.setAxisMaximum(10000f);
 		leftAxis.setAxisMinimum(0f);
 		leftAxis.setDrawGridLines(true);
 
@@ -141,7 +144,7 @@ public class SerialActivity extends BaseActivity implements SerialManagerUiCallb
 
 	}
 
-	private void addEntry1(final String dataReceived){
+	private void addEntry1(String dataReceived){
 		LineData data = mChart.getData();
 		if(data != null){
 			LineDataSet set  = (LineDataSet) data.getDataSetByIndex(0);
@@ -149,12 +152,20 @@ public class SerialActivity extends BaseActivity implements SerialManagerUiCallb
 				set = createSet();
 				data.addDataSet(set);
 			}
-
+			 dataReceived = s0 + dataReceived;
 			///string translate  1/n2/n3/n4/n5/n
 			StringTokenizer st  = new StringTokenizer(dataReceived,"\n");
-			int n = st.countTokens();
+//			int n = st.countTokens();
 			while (st.hasMoreTokens()){
-				data.addEntry(new Entry(set.getEntryCount(),Integer.parseInt(st.nextToken())),0);
+				String s = st.nextToken();
+				if(s.length() == 5){
+					decoder d = new decoder(s);
+					data.addEntry(new Entry(set.getEntryCount(),d.decoderData()),0);
+					Log.d(TAG, "decoderData:" + d.decoderData());
+				}else if(s.length()<5){
+					s0 = s;
+				}
+
 			}
 			data.notifyDataChanged();
 
